@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Refuerzo {
     public static void main(String[] args) {
         List<Documento> documentos = new ArrayList<>();
+        List<Client> clients = new ArrayList<>();
         Scanner s = new Scanner(System.in);
         boolean menu = true;
         while (menu) {
@@ -21,6 +22,9 @@ public class Refuerzo {
                 while (true) {
                     boolean out = true;
                     id = s.nextInt();
+                    if (id <1 || id > 999999) {
+                        out = false;
+                    }
                     for (Documento d : documentos) {
                         if (d.getId() == id) {
                             out =false;
@@ -35,14 +39,8 @@ public class Refuerzo {
                 String title = s.nextLine();
                 String subject = s.nextLine();
                 int amount = s.nextInt();
-                boolean status = false;
-                int st = s.nextInt();
-                while (st != 1 && st != 0) {
-                    st = s.nextInt();
-                }
-                if (st == 1) {
-                    status = true;
-                }
+                boolean status = true;
+                
                 switch (type) {
                     case 1:
                     s.nextLine();
@@ -100,6 +98,97 @@ public class Refuerzo {
                 case 5:
                 break;
                 case 6:
+                id = s.nextInt();
+                int clindex = -1; boolean found = false;
+                for (Client c : clients) {
+                    if (c.getIdentity() == id) {
+                        clindex = clients.indexOf(c); found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    s.nextLine();
+                    String name = s.nextLine();
+                    String address = s.nextLine();
+                    clients.add(new Client(id, name, address, 0));
+                    for (Client c : clients) {
+                    if (c.getIdentity() == id) {
+                        clindex = clients.indexOf(c); found = true;
+                        break;
+                    }
+                }  
+                }
+                if (clients.get(clindex).getAmountBorrowed() == 5) {
+                    break;
+                }
+                id =s.nextInt(); found = false; int dindex = -1;
+                for (Documento d : documentos) {
+                    if (d.getId() == id) {
+                        found = true;
+                        dindex = documentos.indexOf(d);
+                        break;
+                    }
+                }
+                if (found){
+                    if (documentos.get(dindex).isStatus() == false) {
+                        break;
+                    }
+                    int from = s.nextInt();
+                    int due = s.nextInt();
+                    clients.get(clindex).setBorrowing(id, from, due);
+                    clients.get(clindex).setAmount(clients.get(clindex).getAmountBorrowed() + 1);
+                    documentos.get(dindex).setAmount(documentos.get(dindex).getAmount() - 1);
+                    if (documentos.get(dindex).getAmount() == 0) {
+                        documentos.get(dindex).setStatus(false);
+                    }
+
+                }
+
+                break;
+                case 7:
+                id = s.nextInt(); found =false;
+                for (Client c : clients) {
+                    if (c.getIdentity() == id) {
+                        found = true;
+                        int index = s.nextInt();
+                        int idd = c.getBorrowing(index - 1)[0];
+                        if (idd == 0) {
+                            break;
+                        }
+                        int due = s.nextInt();
+                        int from = c.getBorrowing(index - 1)[1];
+               //         int[][] narray = {c.getBorrowing(0), c.getBorrowing(1), c.getBorrowing(2), c.getBorrowing(3), c.getBorrowing(4)};
+                 //       narray[index][2] = due;
+                        clients.get(clients.indexOf(c)).setBorrowing(idd, from, due);
+                        break;
+                    }
+                }
+
+                break;
+                case 8:
+                id = s.nextInt(); found = false;
+                for (Client c : clients) {
+                    if (c.getIdentity() == id) {
+                        int index = s.nextInt();
+                        int idd = c.getBorrowing(index - 1)[0];
+                        if (idd == 0) {
+                            break;
+                        }
+                        clients.get(clients.indexOf(c)).setBorrowing(-idd, c.getBorrowing(index-1)[1], c.getBorrowing(index-1)[2]);
+                        for (Documento d: documentos) {
+                            if (d.getId() == idd) {
+                                documentos.get(documentos.indexOf(d)).setAmount(d.getAmount() + 1);
+                                if (d.isStatus() == false){
+                                    documentos.get(documentos.indexOf(d)).setStatus(true);
+                                }
+                                break;
+                            }
+                        }
+                        break;
+                    }
+                }
+                break;
+                case 9:
                 menu = false;
                 break;
             }

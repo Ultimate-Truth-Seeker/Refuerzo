@@ -28,6 +28,12 @@ public abstract class Documento {
     public boolean isStatus() {
         return status;
     }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
     
     
 
