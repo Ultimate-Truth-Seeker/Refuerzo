@@ -1,5 +1,8 @@
 package Refuerzo;
-
+/**
+ * clase que representa una revista
+ * @author Ultimate-Truth-Seeker
+ */
 public class Magazine extends Documento {
     private int number;
     private int year;

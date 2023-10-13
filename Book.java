@@ -1,5 +1,8 @@
 package Refuerzo;
-
+/**
+ * clase que representa un libro
+ * @author Ultimate-Truth-Seeker
+ */
 public class Book extends Documento  {
     private String editorial;
     private String author;

@@ -1,5 +1,8 @@
 package Refuerzo;
-
+/**
+ * clase que representa un cliente
+ * @author Ultimate-Truth-Seeker
+ */
 public class Client {
     private int identity;
     private String name;
@@ -28,15 +31,22 @@ public class Client {
         return this.borrowed[index];
     }
     public void setBorrowing(int id, int from, int due) {
-        for (int[] a : this.borrowed) {
+        for (int x = 0; x < 5; x++) {
+            int[] a = this.borrowed[x];
             if (a[0] == 0 && a[1] == 0 && a[2] == 0 && id > 0) {
-                a = new int[] {id, from, due};
+                this.borrowed[x][0] = id;
+                this.borrowed[x][1] = from;
+                this.borrowed[x][2] = due;
                 break;
             } else if (a[0] == id && a[1] == from) {
-                a = new int[] {id, from, due};
+                this.borrowed[x][0] = id;
+                this.borrowed[x][1] = from;
+                this.borrowed[x][2] = due;
                 break;
             } else if (id == -a[0] && from == a[1] && due == a[2]) {
-                a = new int[] {0, 0, 0};
+                this.borrowed[x][0] = 0;
+                this.borrowed[x][1] = 0;
+                this.borrowed[x][2] = 0;
             }
         }
     }

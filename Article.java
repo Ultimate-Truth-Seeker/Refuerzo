@@ -1,5 +1,8 @@
 package Refuerzo;
-
+/**
+ * clase que representa un artículo
+ * @author Ultimate-Truth-Seeker
+ */
 public class Article extends Documento {
     private String author;
     private String referee;

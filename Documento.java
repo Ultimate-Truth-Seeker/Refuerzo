@@ -1,5 +1,8 @@
 package Refuerzo;
-
+/**
+ * clase que representa un documento
+ * @author Ultimate-Truth-Seeker
+ */
 public abstract class Documento {
     private int id;
     private String title;
